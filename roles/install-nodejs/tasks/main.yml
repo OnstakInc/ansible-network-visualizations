@@ -7,7 +7,7 @@
     - wget
     - telnet
 
-- name : Install Base PHP Packages
+- name : Install NodeJS Repository
   shell: curl -sL https://rpm.nodesource.com/setup_12.x | bash -
 
 - name : Install NodeJS 12

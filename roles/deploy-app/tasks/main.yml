@@ -33,8 +33,8 @@
     regexp: '^SELINUX=enforcing$' 
     line: 'SELINUX=disabled'
 
-- name: Add MySQL Firewall Rule
-  firewalld: port=27017/tcp permanent=true state=enabled zone=public
+- name: Add Firewall Rule
+  firewalld: port=8080/tcp permanent=true state=enabled zone=public
 
 - name: Reload Firewalld Service
   command: "firewall-cmd --reload"
