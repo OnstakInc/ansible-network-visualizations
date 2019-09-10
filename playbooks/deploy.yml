@@ -1,4 +1,9 @@
 ---
+  - hosts: db
+    become: true
+    roles:
+      - install-mongo
+      
   - hosts: app
     become: true
     roles:
@@ -10,8 +15,3 @@
     roles:
       - install-nodejs
       - deploy-node
-
-  - hosts: db
-    become: true
-    roles:
-      - install-mongo
