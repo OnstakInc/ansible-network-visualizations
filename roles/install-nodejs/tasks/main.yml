@@ -1,0 +1,16 @@
+---
+- name : Install Required Tools
+  yum: name={{packages}} state=present enablerepo=remi-php70 update_cache=yes
+  vars:
+    packages:
+    - curl
+    - wget
+    - telnet
+
+- name : Install Base PHP Packages
+  shell: curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+
+- name : Install NodeJS 12
+  yum: name=nodejs state=present update_cache=yes
+
+  

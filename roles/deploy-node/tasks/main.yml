@@ -1,0 +1,40 @@
+---
+- name: Create Directory
+  file: path=/opt/network-app state=directory
+
+- name: Clone Git Repository
+  git:
+    repo: 'https://github.com/OnstakInc/network-visualizations.git'
+    dest: /opt/network-app
+
+- name: Install NPM Dependencies
+  npm:
+    path: /opt/network-app
+
+- name: Copy Service File
+  template:
+    src: network-app.service.j2
+    dest: /etc/systemd/system/network-app.service
+    mode: 0666
+  
+- name: Reload Firewalld Service
+  command: "systemctl daemon-reload"
+
+- name: Restart Network App Server
+  service: name=network-app state=restarted enabled=yes
+
+- name: Set SeLinux To Permissive
+  shell: setenforce 0
+  ignore_errors: yes
+
+- name: Update SeLinux Configurations
+  lineinfile: 
+    dest: /etc/selinux/config
+    regexp: '^SELINUX=enforcing$' 
+    line: 'SELINUX=disabled'
+
+- name: Add MySQL Firewall Rule
+  firewalld: port=27017/tcp permanent=true state=enabled zone=public
+
+- name: Reload Firewalld Service
+  command: "firewall-cmd --reload"

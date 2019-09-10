@@ -1,0 +1,17 @@
+---
+  - hosts: app
+    become: true
+    roles:
+      - install-nodejs
+      - deploy-app
+
+  - hosts: nodes
+    become: true
+    roles:
+      - install-nodejs
+      - deploy-node
+
+  - hosts: db
+    become: true
+    roles:
+      - install-mongo

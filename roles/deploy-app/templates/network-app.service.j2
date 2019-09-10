@@ -1,0 +1,19 @@
+[Unit]
+Description=Network App Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+
+RestartSec=10
+Restart=always
+
+Environment=HOST={{ inventory_hostname }}
+Environment=PORT=8080
+
+ExecStart=/usr/bin/node /opt/network-app/src/bin/www
+
+[Install]
+WantedBy=multi-user.target

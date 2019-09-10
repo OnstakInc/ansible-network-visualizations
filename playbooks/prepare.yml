@@ -1,0 +1,9 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+      - name: Update Operating System
+        command: "yum update -y"
+
+      - name: Install epel-repository
+        yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present

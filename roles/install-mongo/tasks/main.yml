@@ -1,0 +1,25 @@
+---
+- name: Copy MongoDB Repo
+  copy:
+    src: mongodb-org-4.2.repo
+    dest: /etc/yum.repos.d/mongodb-org-4.2.repo
+    mode: 0666
+
+- name: Install MySQL Server
+  yum: name=mongodb-org state=present
+
+- name: Set SeLinux To Permissive
+  shell: setenforce 0
+  ignore_errors: yes
+
+- name: Update SeLinux Configurations
+  lineinfile: 
+    dest: /etc/selinux/config
+    regexp: '^SELINUX=enforcing$' 
+    line: 'SELINUX=disabled'
+
+- name: Add MySQL Firewall Rule
+  firewalld: port=27017/tcp permanent=true state=enabled zone=public
+
+- name: Reload Firewalld Service
+  command: "firewall-cmd --reload"
