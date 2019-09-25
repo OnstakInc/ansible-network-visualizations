@@ -25,4 +25,4 @@
   command: "firewall-cmd --reload"
 
 - name: Restart MongoDB Server
-  service: name=network-app state=restarted enabled=yes
+  service: name=mongod state=restarted enabled=yes
