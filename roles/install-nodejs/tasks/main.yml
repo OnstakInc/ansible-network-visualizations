@@ -6,6 +6,7 @@
     - curl
     - wget
     - telnet
+    - git
 
 - name : Install NodeJS Repository
   shell: curl -sL https://rpm.nodesource.com/setup_12.x | bash -
