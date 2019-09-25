@@ -1,4 +1,7 @@
 ---
+- name: Clean Up Old Versions
+  file: path=/opt/network-app state=absent
+
 - name: Create Directory
   file: path=/opt/network-app state=directory
 
